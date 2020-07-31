@@ -1,21 +1,27 @@
 <?php
 
-namespace application\core;
+namespace Beejee\application\core;
 
-use application\core\View;
+use Beejee\application\core\View;
 
 abstract class Controller {
 
     public $route;
     public $view;
+    public $twig;
+    public $loader;
 
     public function __construct($route) {
         $this->route = $route;
+        $this->loader = new \Twig\Loader\FilesystemLoader('application/views');
+        $this->twig = new \Twig\Environment($this->loader, ['debug' => true]);
+
         $this->view = new View($route);
         $this->model = $this->loadModel($route['controller']);
     }
 
-    public function loadModel($name) {
+    public function loadModel($name)
+    {
         $path = 'application\models\\'.ucfirst($name);
         if (class_exists($path)) {
             return new $path;

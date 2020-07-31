@@ -1,6 +1,6 @@
 <?php
 
-namespace application\lib;
+namespace Beejee\application\lib;
 
 use PDO;
 

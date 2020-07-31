@@ -1,8 +1,8 @@
 <?php
 
-namespace application\core;
+namespace Beejee\application\core;
 
-use application\lib\Db;
+use Beejee\application\lib\Db;
 
 abstract class Model {
 

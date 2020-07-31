@@ -1,16 +1,21 @@
 <?php
 
-namespace application\controllers;
+namespace Beejee\application\controllers;
 
-use application\core\Controller;
-use application\core\View;
-
+use Beejee\application\core\Controller;
+use Beejee\application\models\Main;
 
 class MainController extends Controller
 {
     public function indexAction()
     {
+        $model = new Main();
+        $content = [
+            'tasks' => $model->getTasks(),
+        ];
 
-        $this->view->render('Main page');
+        $template = $this->twig->load('main/index.htm.twig');
+        echo $template->render($content);
+
     }
 }

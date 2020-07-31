@@ -1,8 +1,8 @@
 <?php
 
-namespace application\core;
+namespace Beejee\application\core;
 
-use application\core\View;
+use Beejee\application\core\View;
 
 class Router {
 
@@ -40,7 +40,7 @@ class Router {
 
     public function run(){
         if ($this->match()) {
-            $path = 'application\controllers\\'.ucfirst($this->params['controller']).'Controller';
+            $path = 'Beejee\application\controllers\\'.ucfirst($this->params['controller']).'Controller';
             if (class_exists($path)) {
                 $action = $this->params['action'].'Action';
                 if (method_exists($path, $action)) {
@@ -50,7 +50,7 @@ class Router {
                     }, ARRAY_FILTER_USE_BOTH);
                     call_user_func_array([$controller, $action], $args);
                 } else {
-                    View::errorCode(404);
+                    View::errorCode(500);
                 }
             } else {
                 View::errorCode(404);
