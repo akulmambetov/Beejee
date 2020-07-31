@@ -1,0 +1,17 @@
+{
+    "name": "user/beejee",
+    "authors": [
+        {
+            "name": "Kulmambetov Atay",
+            "email": "a.kulmambetov@yandex.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Beejee\\": ""
+        }
+    },
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}
