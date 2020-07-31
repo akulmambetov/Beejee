@@ -15,7 +15,8 @@ abstract class Controller {
         $this->route = $route;
         $this->loader = new \Twig\Loader\FilesystemLoader('application/views');
         $this->twig = new \Twig\Environment($this->loader, ['debug' => true]);
-
+        $this->twig->addExtension(new \Twig\Extension\DebugExtension());
+        $this->twig->addGlobal('session', $_SESSION);
         $this->view = new View($route);
         $this->model = $this->loadModel($route['controller']);
     }

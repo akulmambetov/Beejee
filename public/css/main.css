@@ -1,0 +1,12 @@
+body {
+    background: #fafafa;
+    color: #333333;
+}
+
+.task__checked {
+    background-color: #c1ffd3;
+}
+
+input[type="checkbox" i]:disabled {
+    background-color: #447cff !important;
+}

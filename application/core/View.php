@@ -40,9 +40,14 @@ class View {
         exit;
     }
 
-    public static function message($status, $message, $fields = [])
+    public function message($status, $message, $fields = [])
     {
         exit(json_encode(['status' => $status, 'message' => $message, 'fields' => $fields]));
+    }
+
+    public function redirectJs($url)
+    {
+        exit(json_encode(['url' => $url]));
     }
 
 }

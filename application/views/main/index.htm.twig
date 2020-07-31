@@ -2,19 +2,44 @@
 {% block title %} Главная страница {% endblock %}
 
 {% block content %}
-{% if tasks %}
+    {% if tasks %}
 
-    {% for task in tasks %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Status</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email</th>
+                <th scope="col">Text</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr {% if (task.status) %}class="task__checked" {% endif %}>
+                    <th scope="row">{{ task.id }}</th>
+                    <th>
+                        <input type="checkbox"
+                                {% if (task.status) %}
+                                    checked
+                                {% endif %}
+                                disabled
+                        >
+                    </th>
+                    <td>{{ task.username }}</td>
+                    <td>{{ task.email }}</td>
+                    <td>{{ task.text }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-        {{ task.username }}
-        {{ task.text }}
 
-    {% endfor %}
 
     {% else %}
 
-    <h2>Список пуст</h2>
+        <h2>Список пуст</h2>
 
-{% endif %}
+    {% endif %}
 
 {% endblock content %}

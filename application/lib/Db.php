@@ -38,4 +38,10 @@ class Db
         return $result->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function column($sql, $params = [])
+    {
+        $result = $this->query($sql, $params);
+        return $result->fetchColumn();
+    }
+
 }
