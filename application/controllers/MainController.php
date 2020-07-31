@@ -10,6 +10,7 @@ class MainController extends Controller
 {
     public function indexAction()
     {
-        View::message(200, 'asdasdas');
+
+        $this->view->render('Main page');
     }
 }
