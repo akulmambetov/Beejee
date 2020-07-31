@@ -15,7 +15,7 @@ class AuthController extends Controller
                 $this->view->message('error', $model->error, ['login' => $model->error]);
             }
             $_SESSION['admin'] = true;
-            $this->view->redirectJs('admin');
+            $this->view->redirectJs('');
         }
         echo $this->twig->render('main/login.htm.twig');
     }

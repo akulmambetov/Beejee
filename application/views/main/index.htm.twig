@@ -12,6 +12,9 @@
                 <th scope="col">Username</th>
                 <th scope="col">Email</th>
                 <th scope="col">Text</th>
+                {% if (session.admin) %}
+                    <th scope="col">Изменить</th>
+                {% endif %}
             </tr>
             </thead>
             <tbody>
@@ -23,12 +26,15 @@
                                 {% if (task.status) %}
                                     checked
                                 {% endif %}
-                                disabled
+                               disabled
                         >
                     </th>
                     <td>{{ task.username }}</td>
                     <td>{{ task.email }}</td>
                     <td>{{ task.text }}</td>
+                    {% if (session.admin) %}
+                        <td><a href="/edit/{{ task.id }}" class="btn btn-outline-primary">Изменить</a></td>
+                    {% endif %}
                 </tr>
             {% endfor %}
             </tbody>

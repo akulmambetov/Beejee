@@ -5,6 +5,10 @@ return [
         'controller' => 'task',
         'action' => 'index',
     ],
+    'edit/{id:\d+}' => [
+        'controller' => 'task',
+        'action' => 'edit'
+    ],
     'add' => [
         'controller' => 'task',
         'action' => 'add'
