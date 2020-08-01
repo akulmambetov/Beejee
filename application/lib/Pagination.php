@@ -57,6 +57,7 @@ class Pagination
         }
 
         $parts = parse_url($_SERVER['REQUEST_URI']) + array('query' => array());
+
         $query = '';
 
         if (isset($parts['query']) && !empty($parts['query']) != '') {
@@ -68,7 +69,6 @@ class Pagination
             $query = '?page=' . $page;
         }
 
-
         $link = $parts['path'] . $query;
 
         return '<li class="page-item"><a class="page-link" href="' . $link . '">' . $text . '</a></li>';
@@ -76,7 +76,7 @@ class Pagination
 
     private function limits()
     {
-        $left = $this->current_page - round($this->max / 2);
+        $left = $this->current_page - round($this->max / 3);
         $start = $left > 0 ? $left : 1;
         if ($start + $this->max <= $this->amount) {
             $end = $start > 1 ? $start + $this->max : $this->max;

@@ -11,6 +11,7 @@ class TaskController extends Controller
 {
     public function indexAction()
     {
+
         $page = $_GET['page'] ?? 1;
         $sort = $_GET['sort'] ?? 'id';
         $order = $_GET['order'] ?? 'desc';
@@ -68,7 +69,7 @@ class TaskController extends Controller
             }
             echo $this->twig->render('main/detail.htm.twig', $content);
         }else {
-            View::errorCode(403);
+            $this->view->redirectJs('login');
         }
     }
 }
