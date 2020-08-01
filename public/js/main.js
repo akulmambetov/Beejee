@@ -17,9 +17,7 @@ $(document).ready(function () {
                         $('.form-group').find('#' + index).parent().find('.invalid-feedback').html(value);
                     });
                 }else if (json.status === 200){
-                    $('#alert').addClass('alert-success');
-                    $('#alert').text(json.message);
-                    $('#alert').css("display", "block");
+                    console.log(json.message);
                 }
                 else {
                     window.location.href = '/' + json.url;

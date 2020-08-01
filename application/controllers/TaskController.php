@@ -2,6 +2,7 @@
 
 namespace Beejee\application\controllers;
 
+use Beejee\application\lib\Pagination;
 use Beejee\application\core\Controller;
 use Beejee\application\core\View;
 use Beejee\application\models\Tasks;
@@ -10,9 +11,23 @@ class TaskController extends Controller
 {
     public function indexAction()
     {
+        $page = $_GET['page'] ?? 1;
+        $sort = $_GET['sort'] ?? 'id';
+        $order = $_GET['order'] ?? 'desc';
+
         $model = new Tasks();
+        $pagination = new Pagination($page, $model->getTasksCount(), $model::TASKS_PER_PAGE);
+
+        $tasks = $model->getTasks($page, $model::TASKS_PER_PAGE, $sort, $order);
+
+        $order = $order == 'asc' ? 'desc' : 'asc';
+
         $content = [
-            'tasks' => $model->getTasks()
+            'pagination' => $pagination->get(),
+            'tasks' => $tasks,
+            'page' => $page,
+            'sort' => $sort,
+            'order' => $order,
         ];
 
         echo $this->twig->render('main/index.htm.twig', $content);

@@ -9,7 +9,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Status</th>
-                <th scope="col">Username</th>
+                <th scope="col"><a href="/?page={{ page }}&sort=username&order={{ order }}">Username</a></th>
                 <th scope="col">Email</th>
                 <th scope="col">Text</th>
                 {% if (session.admin) %}
@@ -39,6 +39,7 @@
             {% endfor %}
             </tbody>
         </table>
+        {{ pagination|raw }}
 
 
 

@@ -26,6 +26,7 @@ class Router {
     public function match() {
         $url = trim($_SERVER['REQUEST_URI'], '/');
         $url = parse_url($url, PHP_URL_PATH);
+
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
                 foreach ($matches as $key => $match) {
@@ -56,7 +57,7 @@ class Router {
                     }, ARRAY_FILTER_USE_BOTH);
                     call_user_func_array([$controller, $action], $args);
                 } else {
-                    View::errorCode(500);
+                    View::errorCode(404);
                 }
             } else {
                 View::errorCode(404);

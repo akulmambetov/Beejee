@@ -3,12 +3,14 @@
 namespace Beejee\application\models;
 
 use application\core\View;
+use application\models\Auth;
 use Beejee\application\core\Model;
 
 class Tasks extends Model
 {
     public $task = [];
     public $error = [];
+    const TASKS_PER_PAGE = 3;
 
     public function validate()
     {
@@ -82,9 +84,20 @@ class Tasks extends Model
 
     }
 
-    public function getTasks()
+    public function getTasks($page = 1, $max = 3, $sort, $order = 'asc')
     {
-        return $this->db->row('SELECT * FROM tasks ORDER BY id DESC');
+        $page = !is_numeric($page) || $page < 0 ? 1 : $page;
+        $params = [
+            'max' => $max,
+            'start' => ((($page ?? 1) - 1) * $max),
+        ];
+
+        return $this->db->row('SELECT * FROM tasks ORDER BY ' . $sort . ' ' . $order . ' LIMIT :start, :max', $params);
+    }
+
+    public function getTasksCount()
+    {
+        return $this->db->column('SELECT COUNT(id) FROM tasks');
     }
 
     public function findOne($id)
