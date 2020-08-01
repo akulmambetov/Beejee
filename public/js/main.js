@@ -10,17 +10,20 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             success: function (result) {
-                json = jQuery.parseJSON(result);
-                if (json.status === 'error') {
-                    $.each(json.fields, function (index, value) {
-                        $('.form-group').find('#' + index).addClass('is-invalid');
-                        $('.form-group').find('#' + index).parent().find('.invalid-feedback').html(value);
-                    });
+                try {
+                    json = jQuery.parseJSON(result);
+                    if (json.status === 'error') {
+                        $.each(json.fields, function (index, value) {
+                            $('.form-group').find('#' + index).addClass('is-invalid');
+                            $('.form-group').find('#' + index).parent().find('.invalid-feedback').html(value);
+                        });
+                    } else {
+                        window.location.href = '/' + json.url;
+                    }
+                }finally {
+                    window.location.href = '/login';
                 }
-                else {
-                    window.location.href = '/' + json.url;
-                }
-            },
+            }
         });
     });
 
