@@ -9,15 +9,19 @@ class AuthController extends Controller
 {
     public function loginAction()
     {
-        if (!empty($_POST) && isset($_POST['login']) && isset($_POST['password'])) {
-            $model = new Auth();
-            if (!$model->loginValidate($_POST)) {
-                $this->view->message('error', $model->error, ['login' => $model->error]);
+        if (isset($_SESSION['admin'])) {
+            $this->view->redirect('');
+        } else {
+            if (!empty($_POST) && isset($_POST['login']) && isset($_POST['password'])) {
+                $model = new Auth();
+                if (!$model->loginValidate($_POST)) {
+                    $this->view->message('error', $model->error, ['login' => $model->error]);
+                }
+                $_SESSION['admin'] = true;
+                $this->view->redirectJs('');
             }
-            $_SESSION['admin'] = true;
-            $this->view->redirectJs('');
+            echo $this->twig->render('main/login.htm.twig');
         }
-        echo $this->twig->render('main/login.htm.twig');
     }
 
     public function logoutAction()

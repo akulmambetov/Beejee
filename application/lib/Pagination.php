@@ -20,10 +20,6 @@ class Pagination
         $this->limit = $limit;
         $this->amount = $this->amount();
         $this->setCurrentPage();
-
-        if (isset($this->route) && (int)$this->route > (int)$this->amount) {
-            View::errorCode(404);
-        }
     }
 
     public function get()

@@ -16,8 +16,6 @@ $(document).ready(function () {
                         $('.form-group').find('#' + index).addClass('is-invalid');
                         $('.form-group').find('#' + index).parent().find('.invalid-feedback').html(value);
                     });
-                }else if (json.status === 200){
-                    console.log(json.message);
                 }
                 else {
                     window.location.href = '/' + json.url;

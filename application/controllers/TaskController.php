@@ -59,6 +59,7 @@ class TaskController extends Controller
                 'task' => $model->findOne($id)
             ];
 
+
             if ($_POST) {
                 $model->setAttributes($_POST);
                 if ($model->updateTask($id)) {
@@ -69,7 +70,7 @@ class TaskController extends Controller
             }
             echo $this->twig->render('main/detail.htm.twig', $content);
         }else {
-            $this->view->redirectJs('login');
+            $this->view->redirect('login');
         }
     }
 }

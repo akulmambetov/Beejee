@@ -25,8 +25,8 @@ class Tasks extends Model
         }
 
 
-        if (mb_strlen($this->task['text']) < 3 || mb_strlen($this->task['text']) > 50) {
-            $this->error['text'] = 'Поле «text» должно содержать от 3 до 50 символов';
+        if (mb_strlen($this->task['text']) < 3 || mb_strlen($this->task['text']) > 150) {
+            $this->error['text'] = 'Поле «text» должно содержать от 3 до 150 символов';
         }
 
         if (!empty($this->error)) {
@@ -42,10 +42,13 @@ class Tasks extends Model
         } else {
             $status = 0;
         }
+        $text = strip_tags($data['text']);
+        $text = htmlentities($data['text'], ENT_QUOTES, "UTF-8");
+        $text = htmlspecialchars($data['text'], ENT_QUOTES);
         $this->task = [
             'username' => $data['username'],
             'email' => $data['email'],
-            'text' => $data['text'],
+            'text' => $text,
             'status' => $status,
         ];
     }
@@ -57,10 +60,11 @@ class Tasks extends Model
                 'username' => $this->task['username'],
                 'email' => $this->task['email'],
                 'text' => $this->task['text'],
-                'status' => 0
+                'status' => 0,
+                'edited' => 0,
             ];
 
-            $this->db->query("INSERT INTO tasks (status, username, email, text) VALUE (:status, :username, :email, :text)", $params);
+            $this->db->query("INSERT INTO tasks (status, username, email, text, edited) VALUE (:status, :username, :email, :text, :edited)", $params);
             return true;
         }
         return false;
@@ -74,10 +78,11 @@ class Tasks extends Model
                 'email' => $this->task['email'],
                 'text' => $this->task['text'],
                 'status' => $this->task['status'],
-                'id' => $id
+                'id' => $id,
+                'edited' => 1,
             ];
 
-            $this->db->query('UPDATE tasks SET username = :username, email = :email, text = :text, status = :status WHERE id = :id', $params);
+            $this->db->query('UPDATE tasks SET username = :username, email = :email, text = :text, status = :status, edited = :edited WHERE id = :id', $params);
             return true;
         }
         return false;

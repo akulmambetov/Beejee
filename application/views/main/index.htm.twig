@@ -31,7 +31,8 @@
                     </th>
                     <td>{{ task.username }}</td>
                     <td>{{ task.email }}</td>
-                    <td>{{ task.text }}</td>
+                    <td>{{ task.text|raw }}
+                    <span>{% if (task.edited) %} Изменено администратором {% endif %}</span></td>
                     {% if (session.admin) %}
                         <td><a href="/edit/{{ task.id }}" class="btn btn-outline-primary">Изменить</a></td>
                     {% endif %}
