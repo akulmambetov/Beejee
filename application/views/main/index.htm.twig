@@ -8,9 +8,9 @@
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Status</th>
+                <th scope="col"><a href="/?page={{ page }}&sort=status&order={{ order }}">Status</a></th>
                 <th scope="col"><a href="/?page={{ page }}&sort=username&order={{ order }}">Username</a></th>
-                <th scope="col">Email</th>
+                <th scope="col"><a href="/?page={{ page }}&sort=email&order={{ order }}">Email</a></th>
                 <th scope="col">Text</th>
                 {% if (session.admin) %}
                     <th scope="col">Изменить</th>

@@ -50,6 +50,7 @@ class Tasks extends Model
             'email' => $data['email'],
             'text' => $text,
             'status' => $status,
+            'edited' => 0
         ];
     }
 
@@ -73,13 +74,27 @@ class Tasks extends Model
     public function updateTask($id)
     {
         if ($this->validate()) {
+
+            $task = $this->findOne($id);
+
+            $diff = array_diff_assoc($task, $this->task);
+
+            unset($diff['id']);
+            unset($diff['edited']);
+
+            if (!empty($diff)){
+                $edited = 1;
+            }else {
+                $edited = 0;
+            }
+
             $params = [
                 'username' => $this->task['username'],
                 'email' => $this->task['email'],
                 'text' => $this->task['text'],
                 'status' => $this->task['status'],
                 'id' => $id,
-                'edited' => 1,
+                'edited' => $edited,
             ];
 
             $this->db->query('UPDATE tasks SET username = :username, email = :email, text = :text, status = :status, edited = :edited WHERE id = :id', $params);
@@ -108,7 +123,6 @@ class Tasks extends Model
     {
         $data = $this->db->row('SELECT * FROM tasks WHERE id = :id', ['id' => $id]);
         if (!empty($data)) {
-            $this->setAttributes($data[0]);
             return $data[0];
         }
         View::errorCode(404);
