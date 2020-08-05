@@ -2,15 +2,15 @@
 
 namespace Beejee\application\models;
 
-use application\core\View;
-use application\models\Auth;
+use Beejee\application\core\View;
+use Beejee\application\models\Auth;
 use Beejee\application\core\Model;
 
 class Tasks extends Model
 {
     public $task = [];
     public $error = [];
-    const TASKS_PER_PAGE = 3;
+    const TASKS_PER_PAGE = 5;
 
     public function validate()
     {
@@ -86,7 +86,6 @@ class Tasks extends Model
             return true;
         }
         return false;
-
     }
 
     public function getTasks($page = 1, $max = 3, $sort, $order = 'asc')

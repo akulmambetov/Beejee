@@ -10,17 +10,20 @@ $(document).ready(function () {
             cache: false,
             processData: false,
             success: function (result) {
-                try {
-                    json = jQuery.parseJSON(result);
-                    if (json.status === 'error') {
-                        $.each(json.fields, function (index, value) {
-                            $('.form-group').find('#' + index).addClass('is-invalid');
-                            $('.form-group').find('#' + index).parent().find('.invalid-feedback').html(value);
-                        });
-                    } else {
-                        window.location.href = '/' + json.url;
-                    }
-                }finally {
+                json = jQuery.parseJSON(result);
+                if (json.status === 'error') {
+                    $.each(json.fields, function (index, value) {
+                        $('.form-group').find('#' + index).addClass('is-invalid');
+                        $('.form-group').find('#' + index).parent().find('.invalid-feedback').html(value);
+                    });
+                } else if (json.success) {
+                    window.location.href = '/' + json.url + '?success=' + json.success;
+                } else {
+                    window.location.href = '/' + json.url;
+                }
+            },
+            error: function (data) {
+                if (data.status === 403) {
                     window.location.href = '/login';
                 }
             }
@@ -31,4 +34,9 @@ $(document).ready(function () {
         $(this).removeClass('is-invalid');
         $(this).closest('.form-group').find('.invalid-feedback').html('');
     });
+
+    $('.close').on('click', function () {
+        window.history.pushState({}, document.title, "/");
+    })
 });
+

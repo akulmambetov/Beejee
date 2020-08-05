@@ -34,6 +34,7 @@ class Pagination
                 $links .= $this->generateHtml($page);
             }
         }
+
         if (!is_null($links)) {
             if ($this->current_page > 1) {
                 $links = $this->generateHtml(1, '<<') . $links;

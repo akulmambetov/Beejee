@@ -45,9 +45,9 @@ class View {
         exit(json_encode(['status' => $status, 'message' => $message, 'fields' => $fields]));
     }
 
-    public function redirectJs($url)
+    public function redirectJs($url, $success = null)
     {
-        exit(json_encode(['url' => $url]));
+        exit(json_encode(['url' => $url, 'success' => $success]));
     }
 
 }

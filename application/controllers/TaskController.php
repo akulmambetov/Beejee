@@ -15,6 +15,7 @@ class TaskController extends Controller
         $page = $_GET['page'] ?? 1;
         $sort = $_GET['sort'] ?? 'id';
         $order = $_GET['order'] ?? 'desc';
+        $success = $_GET['success'] ?? '';
 
         $model = new Tasks();
         $pagination = new Pagination($page, $model->getTasksCount(), $model::TASKS_PER_PAGE);
@@ -29,6 +30,7 @@ class TaskController extends Controller
             'page' => $page,
             'sort' => $sort,
             'order' => $order,
+            'success' => $success,
         ];
 
         echo $this->twig->render('main/index.htm.twig', $content);
@@ -42,8 +44,7 @@ class TaskController extends Controller
         if ($_POST) {
             $model->setAttributes($_POST);
             if ($model->addTask()) {
-                $this->view->redirectJs('');
-                $this->view->message(200, 'Задача успешно добавлена');
+                $this->view->redirectJs('', '1');
             } else {
                 $this->view->message('error', 'Ошибка', $model->error);
             }
@@ -58,8 +59,6 @@ class TaskController extends Controller
             $content = [
                 'task' => $model->findOne($id)
             ];
-
-
             if ($_POST) {
                 $model->setAttributes($_POST);
                 if ($model->updateTask($id)) {
@@ -69,8 +68,8 @@ class TaskController extends Controller
                 }
             }
             echo $this->twig->render('main/detail.htm.twig', $content);
-        }else {
-            $this->view->redirect('login');
+        } else {
+            View::errorCode(403);
         }
     }
 }
