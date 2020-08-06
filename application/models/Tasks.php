@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 namespace Beejee\application\models;
 
@@ -10,7 +10,7 @@ class Tasks extends Model
 {
     public $task = [];
     public $error = [];
-    const TASKS_PER_PAGE = 5;
+    const TASKS_PER_PAGE = 3;
 
     public function validate()
     {
